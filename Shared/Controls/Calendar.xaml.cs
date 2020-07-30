@@ -243,6 +243,16 @@ namespace Xamarin.Plugin.Calendar.Controls
             set => SetValue(ArrowsColorProperty, value);
         }
 
+        // TODO: Figure out how to set up binding
+        //public static readonly BindableProperty GridColorProperty =
+        //    BindableProperty.Create(nameof(GridColor), typeof(Color), typeof(Calendar), Color.Default);
+
+        //public Color GridColor
+        //{
+        //    get => (Color)GetValue(GridColorProperty);
+        //    set => SetValue(GridColorProperty, value);
+        //}
+
         public static readonly BindableProperty FooterArrowVisibleProperty =
             BindableProperty.Create(nameof(FooterArrowVisible), typeof(bool), typeof(Calendar), true);
 

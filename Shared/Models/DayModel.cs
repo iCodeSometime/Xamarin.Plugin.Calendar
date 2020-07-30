@@ -202,15 +202,15 @@ namespace Xamarin.Plugin.Calendar.Models
             {
                 (true, _, _, _) => DisabledColor,
                 (false, true, false, _) => SelectedTextColor,
+                (_, _, _, false) => OtherMonthColor,
                 (false, true, true, _) => EventIndicatorSelectedTextColor,
                 (false, false, true, _) => EventIndicatorTextColor,
                 (false, false, false, true) => DeselectedTextColor,
-                (_, _, _, _) => OtherMonthColor
             };
 
 
 
         private bool IsToday()
-            => Date.Date == DateTime.Today && !IsSelected;
+            => Date.Date == DateTime.Today;
     }
 }
