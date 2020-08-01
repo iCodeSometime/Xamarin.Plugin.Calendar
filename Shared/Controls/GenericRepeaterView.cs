@@ -68,6 +68,17 @@ namespace Xamarin.Plugin.Calendar.Controls
 
         #endregion
 
+        private View getSeparator()
+        {
+            var ret = new BoxView();
+            ret.HeightRequest = 1;
+            ret.HorizontalOptions = LayoutOptions.FillAndExpand;
+            ret.Color = Color.FromHex("#3E3E3E");
+            ret.Margin = new Thickness(0d, 10d);
+
+            return ret;
+        }
+
         private void ResetItems()
         {
             if (ItemTemplate == null)
@@ -85,9 +96,14 @@ namespace Xamarin.Plugin.Calendar.Controls
                 Children.Add(GetEmptyView());
                 return;
             }
+            var items = ItemsSource.Cast<object>().ToList();
+            for (var i = 0; i < items.Count; i++)
+            {
+                Children.Add(GetItemView(items[i]));
 
-            foreach (var itemModel in ItemsSource)
-                Children.Add(GetItemView(itemModel));
+                if (i != items.Count - 1)
+                    Children.Add(getSeparator());
+            }
         }
 
         private View GetItemView(object itemModel)
