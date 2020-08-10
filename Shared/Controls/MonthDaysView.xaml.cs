@@ -130,16 +130,6 @@ namespace Xamarin.Plugin.Calendar.Controls
             set => SetValue(EventIndicatorColorProperty, value);
         }
 
-        /// <summary> Bindable property for EventIndicatorSelectedColor </summary>
-        public static readonly BindableProperty EventIndicatorSelectedColorProperty =
-          BindableProperty.Create(nameof(EventIndicatorSelectedColor), typeof(Color), typeof(MonthDaysView), Color.FromHex("#FF4081"));
-
-        public Color EventIndicatorSelectedColor
-        {
-            get => (Color)GetValue(EventIndicatorSelectedColorProperty);
-            set => SetValue(EventIndicatorSelectedColorProperty, value);
-        }
-
         /// <summary> Bindable property for EventIndicatorTextColor </summary>
         public static readonly BindableProperty EventIndicatorTextColorProperty =
          BindableProperty.Create(nameof(EventIndicatorTextColor), typeof(Color?), typeof(Calendar), Color.Default);
@@ -347,7 +337,6 @@ namespace Xamarin.Plugin.Calendar.Controls
                 case nameof(DeselectedDayTextColor):
                 case nameof(SelectedDayBackgroundColor):
                 case nameof(EventIndicatorColor):
-                case nameof(EventIndicatorSelectedColor):
                 case nameof(EventIndicatorTextColor):
                 case nameof(EventIndicatorSelectedTextColor):
                 case nameof(EventIndicatorType):
@@ -401,7 +390,7 @@ namespace Xamarin.Plugin.Calendar.Controls
                 dayModel.TodayFillColor = TodayFillColor;
                 dayModel.DisabledColor = DisabledDayColor;
 
-                AssignIndicatorColors(ref dayModel);
+                AssignIndicatorColor(ref dayModel);
             }
         }
 
@@ -494,7 +483,7 @@ namespace Xamarin.Plugin.Calendar.Controls
                 dayModel.HasEvents = Events.ContainsKey(currentDate);
                 dayModel.IsDisabled = currentDate < MinimumDate || currentDate > MaximumDate;
 
-                AssignIndicatorColors(ref dayModel);
+                AssignIndicatorColor(ref dayModel);
 
                 if (dayModel.IsSelected)
                     _selectedDay = dayModel;
@@ -535,25 +524,16 @@ namespace Xamarin.Plugin.Calendar.Controls
             _propertyChangedNotificationSupressions[propertyName] = false;
         }
 
-        private void AssignIndicatorColors(ref DayModel dayModel)
+        private void AssignIndicatorColor(ref DayModel dayModel)
         {
             Color? eventIndicatorColor = EventIndicatorColor;
-            Color? eventIndicatorSelectedColor = EventIndicatorSelectedColor;
-            Color? eventIndicatorTextColor = EventIndicatorTextColor;
-            Color? eventIndicatorSelectedTextColor = EventIndicatorSelectedTextColor;
 
             if (Events.TryGetValue(dayModel.Date, out var dayEventCollection) && dayEventCollection is IPersonalizableDayEvent personalizableDay)
             {
                 eventIndicatorColor = personalizableDay?.EventIndicatorColor;
-                eventIndicatorSelectedColor = personalizableDay?.EventIndicatorSelectedColor ?? personalizableDay?.EventIndicatorColor;
-                eventIndicatorTextColor = personalizableDay?.EventIndicatorTextColor;
-                eventIndicatorSelectedTextColor = personalizableDay?.EventIndicatorSelectedTextColor ?? personalizableDay?.EventIndicatorTextColor;
             }
 
             dayModel.EventIndicatorColor = eventIndicatorColor ?? EventIndicatorColor;
-            dayModel.EventIndicatorSelectedColor = eventIndicatorSelectedColor ?? EventIndicatorSelectedColor;
-            dayModel.EventIndicatorTextColor = eventIndicatorTextColor ?? EventIndicatorTextColor;
-            dayModel.EventIndicatorSelectedTextColor = eventIndicatorSelectedTextColor ?? EventIndicatorSelectedTextColor;
         }
     }
 }

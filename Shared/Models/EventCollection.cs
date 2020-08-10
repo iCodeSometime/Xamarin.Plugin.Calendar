@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace Xamarin.Plugin.Calendar.Models
 {
     /// <summary> 
-    /// Calendar events collection, wraps <see cref="Dictionary{DateTime, ICollection}" />
+    /// Calendar events collection, wraps <see cref="Dictionary{DateTime, IList}" />
     /// </summary>
-    public class EventCollection : Dictionary<DateTime, ICollection>
+    public class EventCollection : Dictionary<DateTime, IList>
     {
         #region ctor
 
@@ -53,7 +53,7 @@ namespace Xamarin.Plugin.Calendar.Models
         /// </summary>
         /// <param name="key">Event DateTime</param>
         /// <param name="value">Collection of events for date</param>
-        public new void Add(DateTime key, ICollection value)
+        public new void Add(DateTime key, IList value)
         {
             base.Add(key.Date, value);
             CollectionChanged?.Invoke(this, new EventCollectionChangedArgs { Item = key.Date, Type = EventCollectionChangedType.Add });
@@ -64,7 +64,7 @@ namespace Xamarin.Plugin.Calendar.Models
         /// </summary>
         /// <param name="key">Event DateTime</param>
         /// <returns>Collection of events for date</returns>
-        public new ICollection this[DateTime key]
+        public new IList this[DateTime key]
         {
             get => base[key.Date];
             set
@@ -88,9 +88,9 @@ namespace Xamarin.Plugin.Calendar.Models
         /// Gets the value associated with the specific date
         /// </summary>
         /// <param name="key">The date for the value to get</param>
-        /// <param name="value">If the date exists then this is the associated collection; otherwise, it will be the default value of ICollection</param>
+        /// <param name="value">If the date exists then this is the associated collection; otherwise, it will be the default value of T</param>
         /// <returns>true if dictionary contains an element with the specified date; otherwise false</returns>
-        public new bool TryGetValue(DateTime key, out ICollection value)
+        public new bool TryGetValue(DateTime key, out IList value)
         {
             return base.TryGetValue(key.Date, out value);
         }

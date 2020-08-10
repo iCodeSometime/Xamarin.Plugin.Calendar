@@ -657,6 +657,11 @@ namespace Xamarin.Plugin.Calendar.Controls
             }
         }
 
+        public void Refresh()
+        {
+            UpdateEvents();
+        }
+
         private void UpdateEvents()
         {
             if (Events.TryGetValue(SelectedDate, out var eventList))

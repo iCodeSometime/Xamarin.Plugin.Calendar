@@ -127,15 +127,6 @@ namespace Xamarin.Plugin.Calendar.Models
                             nameof(BackgroundFullEventColor));
         }
 
-        public Color EventIndicatorSelectedColor
-        {
-            get => GetProperty(SelectedBackgroundColor);
-            set => SetProperty(value)
-                    .Notify(nameof(EventColor),
-                            nameof(BackgroundColor),
-                            nameof(BackgroundFullEventColor));
-        }
-
         public Color EventIndicatorTextColor
         {
             get => GetProperty(DeselectedTextColor);
@@ -178,9 +169,7 @@ namespace Xamarin.Plugin.Calendar.Models
                                                ? EventColor
                                                : Color.Default;
 
-        public Color EventColor => IsSelected
-                                 ? EventIndicatorSelectedColor
-                                 : EventIndicatorColor;
+        public Color EventColor => EventIndicatorColor;
 
         public Color OutlineColor => IsToday()
                                    ? TodayOutlineColor
@@ -190,8 +179,7 @@ namespace Xamarin.Plugin.Calendar.Models
         public Color BackgroundColor =>
             (BackgroundEventIndicator, IsSelected, IsToday()) switch
             {
-                (true, false, _) => EventIndicatorColor,
-                (true, true, _) => EventIndicatorSelectedColor,
+                (true, _, _) => EventIndicatorColor,
                 (false, true, _) => SelectedBackgroundColor,
                 (false, false, true) => TodayFillColor,
                 (_, _, _) => DeselectedBackgroundColor
