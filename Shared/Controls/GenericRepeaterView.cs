@@ -22,9 +22,9 @@ namespace Xamarin.Plugin.Calendar.Controls
         public static readonly BindableProperty ItemTemplateProperty =
             BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(GenericRepeaterView), null, propertyChanged: OnItemTemplateChanged);
 
-        public DataTemplate ItemTemplate
+        public DataTemplateSelector ItemTemplate
         {
-            get => (DataTemplate)GetValue(ItemTemplateProperty);
+            get => (DataTemplateSelector)GetValue(ItemTemplateProperty);
             set => SetValue(ItemTemplateProperty, value);
         }
 

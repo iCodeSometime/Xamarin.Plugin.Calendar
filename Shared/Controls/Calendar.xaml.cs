@@ -100,11 +100,11 @@ namespace Xamarin.Plugin.Calendar.Controls
         }
 
         public static readonly BindableProperty EventTemplateProperty =
-          BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplate), typeof(Calendar), null);
+          BindableProperty.Create(nameof(EventTemplate), typeof(DataTemplateSelector), typeof(Calendar), null);
 
-        public DataTemplate EventTemplate
+        public DataTemplateSelector EventTemplate
         {
-            get => (DataTemplate)GetValue(EventTemplateProperty);
+            get => (DataTemplateSelector)GetValue(EventTemplateProperty);
             set => SetValue(EventTemplateProperty, value);
         }
 
