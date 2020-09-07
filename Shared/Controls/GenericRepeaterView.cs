@@ -122,6 +122,11 @@ namespace Xamarin.Plugin.Calendar.Controls
             return view;
         }
 
+        public void Refresh()
+        {
+            ResetItems();
+        }
+
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var itemViews = Children.ToDictionary(x => x.BindingContext, x => x);

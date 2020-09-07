@@ -414,6 +414,15 @@ namespace Xamarin.Plugin.Calendar.Controls
             set => SetValue(SwipeUpCommandProperty, value);
         }
 
+        public static readonly BindableProperty SwipeDownCommandProperty =
+            BindableProperty.Create(nameof(SwipeDownCommand), typeof(ICommand), typeof(Calendar), null);
+        
+        public ICommand SwipeDownCommand
+        {
+            get => (ICommand)GetValue(SwipeDownCommandProperty);
+            set => SetValue(SwipeDownCommandProperty, value);
+        }
+
         /// <summary> Bindable property for SwipeUpToHideEnabled </summary>
         public static readonly BindableProperty SwipeUpToHideEnabledProperty =
           BindableProperty.Create(nameof(SwipeUpToHideEnabled), typeof(bool), typeof(Calendar), true);
@@ -659,7 +668,7 @@ namespace Xamarin.Plugin.Calendar.Controls
 
         public void Refresh()
         {
-            UpdateEvents();
+            eventRepeaterView.Refresh();
         }
 
         private void UpdateEvents()
@@ -745,6 +754,11 @@ namespace Xamarin.Plugin.Calendar.Controls
 
             if (SwipeUpToHideEnabled)
                 ToggleCalendarSectionVisibility();
+        }
+
+        private void OnSwipedDown(object sender, EventArgs e)
+        {
+            SwipeDownCommand?.Execute(null);
         }
 
         #endregion

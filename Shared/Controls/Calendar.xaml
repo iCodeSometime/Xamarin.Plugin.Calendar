@@ -27,6 +27,7 @@
                 SwipedLeft="OnSwipedLeft"
                 SwipedRight="OnSwipedRight"
                 SwipedUp="OnSwipedUp"
+                SwipedDown="OnSwipedDown"
                 VerticalOptions="FillAndExpand">
                 <controls:MonthDaysView
                     x:Name="monthDaysView"
@@ -81,6 +82,7 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="StartAndExpand">
                 <controls:GenericRepeaterView
+                    x:Name="eventRepeaterView"
                     HorizontalOptions="FillAndExpand"
                     ItemTemplate="{Binding EventTemplate, Source={x:Reference calendar}}"
                     ItemsSource="{Binding SelectedDayEvents, Source={x:Reference calendar}}"
