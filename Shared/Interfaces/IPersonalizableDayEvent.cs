@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace Xamarin.Plugin.Calendar.Interfaces
 {
@@ -9,7 +10,7 @@ namespace Xamarin.Plugin.Calendar.Interfaces
         /// Color to use as indicator when there are events on the day
         /// if the EventIndicatorColor is null then the general EventIndicatorColor of the Calendar will be used
         /// </summary>
-        Color? EventIndicatorColor { get; set; }
+        List<Color> EventIndicatorColors { get; set; }
         #endregion
     }
 }

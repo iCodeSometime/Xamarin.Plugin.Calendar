@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Plugin.Calendar.Interfaces;
+using System.Linq;
 
 namespace Xamarin.Plugin.Calendar.Models
 {
@@ -16,16 +17,7 @@ namespace Xamarin.Plugin.Calendar.Models
         /// </summary>
         public DayEventCollection() : base()
         {
-
-        }
-
-        /// <summary>
-        /// Color contructor extends from base()
-        /// </summary>
-        /// <param name="eventIndicatorColor"></param>
-        public DayEventCollection(Color? eventIndicatorColor) : base()
-        {
-            EventIndicatorColor = eventIndicatorColor;
+            EventIndicatorColors = new List<Color>();
         }
 
         /// <summary>
@@ -34,7 +26,7 @@ namespace Xamarin.Plugin.Calendar.Models
         /// <param name="collection"></param>
         public DayEventCollection(IEnumerable<T> collection) : base(collection)
         {
-
+            EventIndicatorColors = new List<Color>();
         }
 
         /// <summary>
@@ -43,11 +35,23 @@ namespace Xamarin.Plugin.Calendar.Models
         /// <param name="capacity"></param>
         public DayEventCollection(int capacity) : base(capacity)
         {
+            EventIndicatorColors = new List<Color>();
+        }
 
+        public void Add(T item, Color color)
+        {
+            base.Add(item);
+
+            if (!EventIndicatorColors.Contains(color))
+            {
+                EventIndicatorColors.Add(color);
+                EventIndicatorColors.Sort((l, r) => l.ToString().CompareTo(r.ToString()));
+            }
         }
 
         #region PersonalizableProperties
-        public Color? EventIndicatorColor { get; set; }
+        private List<Color> eventIndicatorColors;
+        public List<Color> EventIndicatorColors { get; set; }
         #endregion
 
     }

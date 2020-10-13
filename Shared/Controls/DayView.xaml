@@ -34,20 +34,24 @@
             VerticalOptions="Start"
             WidthRequest="8" />
 
-        <Frame
-            Margin="0,0,0,3"
-            Padding="0"
-            BackgroundColor="{Binding EventColor}"
-            CornerRadius="4"
-            HasShadow="False"
-            HeightRequest="8"
-            HorizontalOptions="Center"
-            InputTransparent="True"
-            IsVisible="{Binding BottomDotVisible}"
-            OutlineColor="Transparent"
-            VerticalOptions="End"
-            WidthRequest="8" />
-
+        <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding EventColors}" IsVisible="{Binding BottomDotVisible}" HorizontalOptions="CenterAndExpand">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="0"
+                        Padding="0"
+                        BackgroundColor="{Binding .}"
+                        CornerRadius="4"
+                        HeightRequest="8"
+                        HorizontalOptions="Center"
+                        InputTransparent="True"
+                        OutlineColor="Transparent"
+                        VerticalOptions="End"
+                        WidthRequest="8"
+                        SizeChanged="Frame_SizeChanged"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
         <Label
             HorizontalOptions="Center"
             InputTransparent="True"

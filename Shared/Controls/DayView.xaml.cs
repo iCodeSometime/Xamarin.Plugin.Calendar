@@ -25,5 +25,13 @@ namespace Xamarin.Plugin.Calendar.Controls
                 dayModel.DayTappedCommand?.Execute(dayModel.Date);
             }
         }
+
+        private void Frame_SizeChanged(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var newWidth = frame.Width;
+            frame.HeightRequest = newWidth;
+            frame.CornerRadius = (float)newWidth / 2;
+        }
     }
 }

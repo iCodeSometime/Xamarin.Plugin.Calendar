@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -62,7 +64,7 @@ namespace Xamarin.Plugin.Calendar.Models
                     .Notify(nameof(TextColor),
                             nameof(BackgroundColor),
                             nameof(OutlineColor),
-                            nameof(EventColor),
+                            nameof(EventColors),
                             nameof(BackgroundFullEventColor));
         }
 
@@ -118,11 +120,11 @@ namespace Xamarin.Plugin.Calendar.Models
                             nameof(BackgroundColor));
         }
 
-        public Color EventIndicatorColor
+        public List<Color> EventIndicatorColors
         {
-            get => GetProperty(Color.FromHex("#FF4081"));
+            get => GetProperty(new List<Color>(){Color.FromHex("#FF4081")});
             set => SetProperty(value)
-                    .Notify(nameof(EventColor),
+                    .Notify(nameof(EventColors),
                             nameof(BackgroundColor),
                             nameof(BackgroundFullEventColor));
         }
@@ -166,10 +168,10 @@ namespace Xamarin.Plugin.Calendar.Models
         public bool BackgroundEventIndicator => HasEvents && EventIndicatorType == EventIndicatorType.Background;
 
         public Color BackgroundFullEventColor => HasEvents && EventIndicatorType == EventIndicatorType.BackgroundFull
-                                               ? EventColor
+                                               ? EventColors.First()
                                                : Color.Default;
 
-        public Color EventColor => EventIndicatorColor;
+        public List<Color> EventColors => EventIndicatorColors;
 
         public Color OutlineColor => IsToday()
                                    ? TodayOutlineColor
@@ -179,7 +181,7 @@ namespace Xamarin.Plugin.Calendar.Models
         public Color BackgroundColor =>
             (BackgroundEventIndicator, IsSelected, IsToday()) switch
             {
-                (true, _, _) => EventIndicatorColor,
+                (true, _, _) => EventIndicatorColors.First(),
                 (false, true, _) => SelectedBackgroundColor,
                 (false, false, true) => TodayFillColor,
                 (_, _, _) => DeselectedBackgroundColor
@@ -195,8 +197,6 @@ namespace Xamarin.Plugin.Calendar.Models
                 (false, false, true, _) => EventIndicatorTextColor,
                 (false, false, false, true) => DeselectedTextColor,
             };
-
-
 
         private bool IsToday()
             => Date.Date == DateTime.Today;

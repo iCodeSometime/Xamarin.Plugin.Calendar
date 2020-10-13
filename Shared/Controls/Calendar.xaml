@@ -43,7 +43,7 @@
                     DeselectedDayTextColor="{Binding DeselectedDayTextColor, Source={x:Reference calendar}}"
                     DisabledDayColor="{Binding DisabledDayColor, Source={x:Reference calendar}}"
                     DisplayedMonthYear="{Binding MonthYear, Source={x:Reference calendar}}"
-                    EventIndicatorColor="{Binding EventIndicatorColor, Source={x:Reference calendar}}"
+                    EventIndicatorColors="{Binding EventIndicatorColors, Source={x:Reference calendar}}"
                     EventIndicatorSelectedTextColor="{Binding EventIndicatorSelectedTextColor, Source={x:Reference calendar}}"
                     EventIndicatorTextColor="{Binding EventIndicatorTextColor, Source={x:Reference calendar}}"
                     EventIndicatorType="{Binding EventIndicatorType, Source={x:Reference calendar}}"

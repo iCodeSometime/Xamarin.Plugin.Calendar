@@ -121,13 +121,13 @@ namespace Xamarin.Plugin.Calendar.Controls
         }
 
         /// <summary> Bindable property for EventIndicatorColor </summary>
-        public static readonly BindableProperty EventIndicatorColorProperty =
-          BindableProperty.Create(nameof(EventIndicatorColor), typeof(Color), typeof(MonthDaysView), Color.FromHex("#FF4081"));
+        public static readonly BindableProperty EventIndicatorColorsProperty =
+          BindableProperty.Create(nameof(EventIndicatorColors), typeof(List<Color>), typeof(MonthDaysView), new List<Color>() { Color.FromHex("#FF4081") });
 
-        public Color EventIndicatorColor
+        public List<Color> EventIndicatorColors
         {
-            get => (Color)GetValue(EventIndicatorColorProperty);
-            set => SetValue(EventIndicatorColorProperty, value);
+            get => (List<Color>)GetValue(EventIndicatorColorsProperty);
+            set => SetValue(EventIndicatorColorsProperty, value);
         }
 
         /// <summary> Bindable property for EventIndicatorTextColor </summary>
@@ -336,7 +336,7 @@ namespace Xamarin.Plugin.Calendar.Controls
                 case nameof(OtherMonthDayColor):
                 case nameof(DeselectedDayTextColor):
                 case nameof(SelectedDayBackgroundColor):
-                case nameof(EventIndicatorColor):
+                case nameof(EventIndicatorColors):
                 case nameof(EventIndicatorTextColor):
                 case nameof(EventIndicatorSelectedTextColor):
                 case nameof(EventIndicatorType):
@@ -526,14 +526,15 @@ namespace Xamarin.Plugin.Calendar.Controls
 
         private void AssignIndicatorColor(ref DayModel dayModel)
         {
-            Color? eventIndicatorColor = EventIndicatorColor;
+            List<Color> eventIndicatorColors = EventIndicatorColors;
 
             if (Events.TryGetValue(dayModel.Date, out var dayEventCollection) && dayEventCollection is IPersonalizableDayEvent personalizableDay)
             {
-                eventIndicatorColor = personalizableDay?.EventIndicatorColor;
+                // TODO: List
+                eventIndicatorColors = personalizableDay?.EventIndicatorColors;
             }
 
-            dayModel.EventIndicatorColor = eventIndicatorColor ?? EventIndicatorColor;
+            dayModel.EventIndicatorColors = eventIndicatorColors ?? EventIndicatorColors;
         }
     }
 }
